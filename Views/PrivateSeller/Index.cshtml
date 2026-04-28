@@ -1,0 +1,118 @@
+﻿@model List<RealEstatePortal.Models.Listing>
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+
+<div class="container mt-4">
+
+    <!-- Welcome -->
+    <div class="text-center mb-4">
+        <h2>Welcome, @Context.Session.GetString("UserName")</h2>
+        <p class="text-muted">Manage your properties easily</p>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card text-bg-primary mb-3">
+                <div class="card-body text-center">
+                    @* <h3>@Model.Count()</h3> *@
+                    <h3>@ViewBag.Total</h3>
+                    <p>Total Listings</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-bg-success mb-3">
+                <div class="card-body text-center">
+                    @* <h3>7</h3> *@
+                    <h3>@ViewBag.Active</h3>
+                    <p>Active Listings</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-bg-warning mb-3">
+                <div class="card-body text-center">
+                    @* <h3>2</h3> *@
+                    <h3>@ViewBag.Pending</h3>
+                    <p>Pending Approval</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-bg-danger mb-3">
+                <div class="card-body text-center">
+                    @* <h3>1</h3> *@
+                    <h3>@ViewBag.Expired</h3>
+                    <p>Expired Listings</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Action Button -->
+    @* <div class="mb-3 text-end">
+        <a asp-controller="PrivateSeller" asp-action="AddProperty" class="btn btn-primary">
+            + Add New Property
+        </a>
+    </div> *@
+
+    <!-- My Listings Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5>My Properties</h5>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Price</td>
+                            <td>@item.Category</td>
+                            <td>
+                                @if (item.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">@item.Status</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Are you sure you want to delete this property?');">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
