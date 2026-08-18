@@ -1,0 +1,192 @@
+﻿@model RealEstatePortal.Models.Listing
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+
+                <!-- LEFT: TITLE + STATUS -->
+                <div>
+                    <h3 class="fw-bold mb-1 d-flex align-items-center gap-2">
+                        @Model.Title
+
+          
+                        <span class="badge fs-6 px-2 py-1
+                            @(Model.Status == "Approved" ? "bg-success text-white" :
+                              Model.Status == "Pending" ? "bg-warning text-dark" :
+                              Model.Status == "Rejected" ? "bg-danger text-white" :
+                              "bg-secondary text-white")">
+                            @Model.Status
+                        </span>
+                    </h3>
+                </div>
+
+                <div class="text-end">
+                    <small class="text-muted d-block"> <i class="bi bi-person-circle text-secondary"></i> Posted by</small>
+                    <div class="d-flex align-items-center justify-content-end gap-2">
+                       
+                        <strong>@ViewBag.UserName</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!-- IMAGE -->
+              
+                <div class="col-md-6">
+
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        <div id="listingCarousel" class="carousel slide rounded shadow-sm" data-bs-ride="carousel">
+
+                            <!-- DOTS -->
+                            <div class="carousel-indicators">
+                                @for (int i = 0; i < Model.Images.Count(); i++)
+                                {
+                                    <button type="button"
+                                            data-bs-target="#listingCarousel"
+                                            data-bs-slide-to="@i"
+                                            class="@(i == 0 ? "active" : "")"
+                                            aria-label="Slide @(i + 1)">
+                                    </button>
+                                }
+                            </div>
+
+                            <!-- IMAGES -->
+                            <div class="carousel-inner rounded">
+                                @{
+                                    int index = 0;
+                                }
+                                @foreach (var img in Model.Images)
+                                {
+                                    <div class="carousel-item @(index == 0 ? "active" : "")">
+                                        <img src="@img.ImagePath"
+                                             class="d-block w-100"
+                                             style="height:300px; object-fit:cover;" />
+                                    </div>
+                                    index++;
+                                }
+                            </div>
+
+                            <!-- PREV BUTTON -->
+                            <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#listingCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+
+                            <!-- NEXT BUTTON -->
+                            <button class="carousel-control-next" type="button"
+                                    data-bs-target="#listingCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+
+                        </div>
+
+                        <!-- IMAGE COUNTER -->
+                        <small class="text-muted d-block text-center mt-1">
+                            @Model.Images.Count() photo(s)
+                        </small>
+                    }
+                    else
+                    {
+                        <!-- FALLBACK IF NO IMAGES -->
+                        <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                             style="height:300px;">
+                            <span class="text-muted">No images available</span>
+                        </div>
+                    }
+
+                </div>
+
+
+                <!-- DETAILS -->
+                <div class="col-md-6">    
+
+                    <h4 class="text-primary mb-3">Rs. @Model.Price</h4>
+                    
+                    <p>
+                        <strong>Purpose:</strong>
+
+                        @if (Model.Purpose == "Sell")
+                        {
+                            <span class="badge bg-success">For Sale</span>
+                        }
+                        else if (Model.Purpose == "Rent")
+                        {
+                            <span class="badge bg-primary">For Rent</span>
+                        }
+                    </p>
+                 
+
+                    <p><strong>Category:</strong> @Model.Category</p>
+
+                    <p><strong>City:</strong> @Model.City?.Name</p>
+
+                    <p><strong>Location:</strong> @Model.Location</p>
+
+                    <p><strong>Posted On:</strong> @Model.CreatedDate.ToString("dd MMM yyyy")</p>
+
+                </div>
+                <!-- AGENT CONTACT OPTION -->
+                @if (Model.HideEmail)
+                {
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="fa fa-envelope" style="color:#f0c228;"></i>
+                            Contact
+                        </span>
+
+                        <span class="badge bg-dark">
+                            Email Hidden by Agent
+                        </span>
+                    </div>
+                }
+            </div>
+
+            <!-- DESCRIPTION -->
+            <hr />
+            <h5>Description</h5>
+            <p class="text-muted">@Model.Description</p>
+            <!-- ACTION BUTTONS -->
+            <div class="mt-4 d-flex gap-2">
+
+                @if (Model.Status != "Approved")
+                {
+                    <a asp-action="Approve" asp-route-id="@Model.Id"
+                           class="btn btn-success">
+                        <i class="bi bi-check-circle"></i> Approve
+                    </a>
+                }
+
+                @if (Model.Status != "Rejected")
+                {
+                    <a asp-action="Reject" asp-route-id="@Model.Id"
+                           class="btn btn-danger">
+                        <i class="bi bi-x-circle"></i> Reject
+                    </a>
+                }
+
+                <form asp-action="DeleteListing" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+
+                <a asp-action="Listings" class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

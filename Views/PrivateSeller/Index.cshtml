@@ -1,8 +1,7 @@
-﻿@model List<RealEstatePortal.Models.Listing>
+﻿ @model List<RealEstatePortal.Models.Listing>
 @{
     Layout = "~/Views/Shared/_LayoutMaster.cshtml";
 }
-
 
 <div class="container mt-4">
 
@@ -18,7 +17,6 @@
         <div class="col-md-3">
             <div class="card text-bg-primary mb-3">
                 <div class="card-body text-center">
-                    @* <h3>@Model.Count()</h3> *@
                     <h3>@ViewBag.Total</h3>
                     <p>Total Listings</p>
                 </div>
@@ -28,7 +26,6 @@
         <div class="col-md-3">
             <div class="card text-bg-success mb-3">
                 <div class="card-body text-center">
-                    @* <h3>7</h3> *@
                     <h3>@ViewBag.Active</h3>
                     <p>Active Listings</p>
                 </div>
@@ -38,7 +35,6 @@
         <div class="col-md-3">
             <div class="card text-bg-warning mb-3">
                 <div class="card-body text-center">
-                    @* <h3>2</h3> *@
                     <h3>@ViewBag.Pending</h3>
                     <p>Pending Approval</p>
                 </div>
@@ -48,7 +44,6 @@
         <div class="col-md-3">
             <div class="card text-bg-danger mb-3">
                 <div class="card-body text-center">
-                    @* <h3>1</h3> *@
                     <h3>@ViewBag.Expired</h3>
                     <p>Expired Listings</p>
                 </div>
@@ -56,13 +51,6 @@
         </div>
 
     </div>
-
-    <!-- Action Button -->
-    @* <div class="mb-3 text-end">
-        <a asp-controller="PrivateSeller" asp-action="AddProperty" class="btn btn-primary">
-            + Add New Property
-        </a>
-    </div> *@
 
     <!-- My Listings Table -->
     <div class="card">
@@ -74,6 +62,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
                         <th>Category</th>
@@ -86,6 +75,20 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+
+                            <td>
+                                @if (item.Images != null && item.Images.Any())
+                                {
+                                    <img src="@item.Images.First().ImagePath"
+                                         width="80" height="60"
+                                         style="object-fit:cover; border-radius:4px;" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">No Image</span>
+                                }
+                            </td>
+
                             <td>@item.Title</td>
                             <td>@item.Price</td>
                             <td>@item.Category</td>
@@ -94,6 +97,7 @@
                                 {
                                     <span class="badge bg-success">Active</span>
                                 }
+                          
                                 else
                                 {
                                     <span class="badge bg-warning">@item.Status</span>
@@ -113,6 +117,4 @@
         </div>
     </div>
 
-</div>
-
-
+</div> 

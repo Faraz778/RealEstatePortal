@@ -1,0 +1,147 @@
+﻿@model List<RealEstatePortal.Models.Package>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4">
+
+            <i class="bi bi-check-circle-fill me-2"></i>
+
+            @TempData["success"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-4">
+
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+            @TempData["error"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+    <!-- PAGE HEADER -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="bi bi-box-seam-fill me-2"></i>
+            Choose Your Package
+        </h2>
+
+        <p class="text-muted">
+            Select the best package to publish your property listings
+        </p>
+    </div>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card border-0 shadow-lg rounded-4 h-100 package-card">
+
+                    <!-- TOP -->
+                    <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
+
+                        <h3 class="fw-bold mb-0">
+                            @item.Name
+                        </h3>
+
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <!-- PRICE -->
+                        <div class="text-center mb-4">
+
+                            <h1 class="fw-bold text-primary">
+                                PKR @item.Price
+                            </h1>
+
+                            <small class="text-muted">
+                                One Time Payment
+                            </small>
+
+                        </div>
+
+                        <!-- FEATURES -->
+                        <div class="mb-4">
+
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+
+                                <span>
+                                    <strong>@item.ListingLimit</strong> Listings
+                                </span>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-calendar-check-fill text-success me-2"></i>
+
+                                <span>
+                                    <strong>@item.DurationDays</strong> Days Duration
+                                </span>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-shield-check text-success me-2"></i>
+
+                                <span>
+                                    Premium Support
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- BUTTON -->
+                        <div class="mt-auto">
+
+                            <a asp-action="BuyPackage"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-success w-100 rounded-pill py-2 fw-semibold">
+                                <i class="bi bi-bag-check-fill me-2"></i>
+                                Buy Package
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<style>
+
+    .package-card {
+        transition: 0.3s ease;
+    }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+        }
+
+</style>

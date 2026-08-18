@@ -1,0 +1,175 @@
+﻿@model List<RealEstatePortal.Models.Listing>
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container-fluid mt-3">
+
+    <div class="card shadow-sm">
+
+        <!-- HEADER -->
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">
+                <i class="bi bi-list-check me-2"></i> Manage Listings
+            </h3>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="card-body border-bottom">
+            <form method="get" asp-action="Listings" asp-controller="Admin">
+                <div class="row g-2 align-items-end">
+
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted">Keyword</label>
+                        <input type="text" name="keyword" value="@ViewBag.Keyword"
+                               class="form-control form-control-sm"
+                               placeholder="Search title..." />
+                    </div>
+
+                   
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted">Category</label>
+
+                        <select name="category" class="form-select form-select-sm">
+
+                            <option value="">All Categories</option>
+
+                            @foreach (var cat in ViewBag.Categories)
+                            {
+                                <option value="@cat.Name"
+                                        selected="@(ViewBag.Category == cat.Name)">
+                                    @cat.Name
+                                </option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted">City</label>
+                        <select name="cityId" class="form-select form-select-sm">
+                            <option value="">All Cities</option>
+                            @foreach (var c in ViewBag.Cities)
+                            {
+                                <option value="@c.Id" selected="@(ViewBag.CityId == c.Id)">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted">Status</label>
+                        <select name="status" class="form-select form-select-sm">
+                            <option value="">All Status</option>
+                            <option value="Pending" selected="@(ViewBag.Status == "Pending")">Pending</option>
+                            <option value="Approved" selected="@(ViewBag.Status == "Approved")">Approved</option>
+                            <option value="Rejected" selected="@(ViewBag.Status == "Rejected")">Rejected</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                        <a asp-action="Listings" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-x-circle"></i> Clear
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <!-- RESULTS COUNT -->
+        <div class="px-3 pt-2">
+            <small class="text-muted">Showing @Model.Count listing(s)</small>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>City</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>User</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                No listings found
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td><span class="fw-bold text-success">PKR @item.Price</span></td>
+                                <td>
+                                    @{
+                                        var city = ((List<RealEstatePortal.Models.City>)ViewBag.Cities)
+                                                    .FirstOrDefault(c => c.Id == item.CityId);
+                                    }
+                                    @city?.Name
+                                </td>
+                                <td>@item.Category</td>
+                                <td>
+                                    @if (item.Status == "Approved")
+                                    {
+                                        <span class="badge bg-success">Approved</span>
+                                    }
+                                    else if (item.Status == "Pending")
+                                    {
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    }
+                                    else if (item.Status == "Rejected")
+                                    {
+                                        <span class="badge bg-danger">Rejected</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">@item.Status</span>
+                                    }
+                                </td>
+                                <td>@item.UserId?.Substring(0, 8)</td>
+                                <td class="text-center">
+                                    <a asp-action="Approve" asp-route-id="@item.Id"
+                                           class="btn btn-success btn-sm me-1">
+                                        <i class="bi bi-check-circle"></i>
+                                    </a>
+                                    <a asp-action="Reject" asp-route-id="@item.Id"
+                                           class="btn btn-danger btn-sm me-1">
+                                        <i class="bi bi-x-circle"></i>
+                                    </a>
+                                    <a asp-action="ListingDetails" asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <form asp-action="DeleteListing" asp-controller="Admin"
+                                          method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-outline-dark btn-sm"
+                                                onclick="return confirm('Delete this listing?');">
+                                            <i class="bi bi-trash me-1"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,53 @@
+﻿@model RealEstatePortal.Models.Category
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+
+<div class="container-fluid mt-3">
+
+    <div class="card shadow-sm">
+
+        <!-- Header  -->
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">
+                <i class="bi bi-pencil-square me-2"></i> Edit Category
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">Category Name</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                    <label class="form-check-label">Active</label>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Update Category
+                </button>
+
+                <a href="/Admin/Categories" class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

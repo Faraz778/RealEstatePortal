@@ -1,15 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using RealEstatePortal.Data;
+//using RealEstatePortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //
-// ✅ 1. MVC Services
+//  MVC Services
 //
 builder.Services.AddControllersWithViews();
 
 //
-// ✅ 2. Database Context (EF Core + SQL Server)
+//  Database Context (EF Core + SQL Server)
 //
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 //
-// ✅ 3. Session Support (for login / role management)
+//  Session Support (for login / role management)
 //
 builder.Services.AddDistributedMemoryCache();
 
@@ -29,10 +30,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// Add Expiry Service
+//builder.Services.AddScoped<ListingExpiryService>();
 var app = builder.Build();
 
 //
-// ✅ 4. Exception Handling
+//  Exception Handling
 //
 if (!app.Environment.IsDevelopment())
 {
@@ -41,7 +44,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 //
-// ✅ 5. Middleware Pipeline
+//  Middleware Pipeline
 //
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -49,18 +52,19 @@ app.UseStaticFiles();
 app.UseRouting();
 
 //
-// ✅ IMPORTANT: Session must be before Authorization
+//  IMPORTANT: Session must be before Authorization
 //
 app.UseSession();
 
 app.UseAuthorization();
 
 //
-// ✅ 6. Default Route
+//  Default Route
 //
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
+
 
 app.Run();

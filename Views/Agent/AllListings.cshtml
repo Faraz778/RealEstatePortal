@@ -1,0 +1,75 @@
+﻿@model List<RealEstatePortal.Models.Listing>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold d-flex align-items-center">
+            <i class="bi bi-house-door text-primary me-2"></i>
+            All Listings
+        </h3>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No listings found.
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+
+                    @if (item.Images != null && item.Images.Any())
+                    {
+                        <img src="@item.Images.First().ImagePath"
+                             class="card-img-top"
+                             style="height:200px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-light d-flex align-items-center justify-content-center"
+                             style="height:200px;">
+                            <span class="text-muted">No Image</span>
+                        </div>
+                    }
+
+
+                    <div class="card-body">
+                        <h5>@item.Title</h5>
+
+                        <p>
+                            <b>Price:</b> Rs @item.Price <br />
+                            <b>Category:</b> @item.Category <br />
+                            <b>Status:</b> @item.Status
+                        </p>
+
+                        <div class="mt-auto d-flex justify-content-between">
+
+                            <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id="@item.Id"
+                                   class="btn btn-outline-danger btn-sm"
+                                   onclick="return confirm('Are you sure?')">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

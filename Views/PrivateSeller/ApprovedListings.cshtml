@@ -1,0 +1,96 @@
+﻿@model List<RealEstatePortal.Models.Listing>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-success">
+            Approved Listings
+        </h3>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <div class="row">
+
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+
+                    <div class="card shadow-sm border-0 h-100">
+
+                        <!-- IMAGE -->
+                        @if (item.Images != null && item.Images.Any())
+                        {
+                            <img src="@item.Images.First().ImagePath"
+                                 class="card-img-top"
+                                 style="height:220px; object-fit:cover;">
+                        }
+                        else
+                        {
+                            <img src="/images/no-image.png"
+                                 class="card-img-top"
+                                 style="height:220px; object-fit:cover;">
+                        }
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold">
+                                @item.Title
+                            </h5>
+
+                            <p class="text-muted small mb-2">
+                                @item.Location
+                            </p>
+
+                            <h6 class="text-primary fw-bold mb-3">
+                                PKR @item.Price
+                            </h6>
+
+                            <span class="badge bg-success">
+                                @item.Status
+                            </span>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0 d-flex gap-2">
+
+                            <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-primary btn-sm w-100">
+                                Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-danger btn-sm w-100"
+                                   onclick="return confirm('Are you sure?')">
+                                Delete
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-success">
+                    No approved listings found.
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>

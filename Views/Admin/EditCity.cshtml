@@ -1,0 +1,59 @@
+﻿@model RealEstatePortal.Models.City
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">
+                <i class="bi bi-pencil-square me-2"></i>
+                Edit City
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post" asp-action="EditCity">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+
+                    <label class="form-label">City Name</label>
+
+                    <input asp-for="Name"
+                           class="form-control"
+                           placeholder="Enter city name" />
+
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <button type="submit"
+                            class="btn btn-success">
+
+                        <i class="bi bi-check-circle me-1"></i>
+                        Update
+
+                    </button>
+
+                    <a href="/Admin/Locations"
+                           class="btn btn-secondary">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,201 @@
+﻿@model RealEstatePortal.Models.User
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+
+<main class="app-main">
+
+  
+    <!-- Content -->
+    <div class="app-content mt-2">
+        <div class="container-fluid">
+
+
+
+            @if (Model.Role == "Agent" && string.IsNullOrEmpty(Model.AgencyName))
+            {
+                <div class="alert alert-warning alert-dismissible fade show shadow-sm mb-4">
+
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                    <strong>Complete Your Agent Profile!</strong>
+
+                    Add your agency details, WhatsApp, experience and office address.
+
+                    <a asp-controller="Account"
+                           asp-action="EditProfile"
+                           class="btn btn-sm btn-dark ms-3">
+
+                        Complete Now
+
+                    </a>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+            }
+
+            <!-- INFO BOXES ROW -->
+            <div class="row">
+
+                <!-- Total Listings -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-primary shadow-sm">
+                            <i class="bi bi-house-door-fill"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">My Listings</span>
+                            <span class="info-box-number">@ViewBag.Total</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approved -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-success shadow-sm">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Approved Ads</span>
+                            <span class="info-box-number">@ViewBag.Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-warning shadow-sm">
+                            <i class="bi bi-hourglass-split"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Pending Ads</span>
+                            <span class="info-box-number">@ViewBag.Pending</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expired -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-danger shadow-sm">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Expired Ads</span>
+                            <span class="info-box-number">@ViewBag.Expired</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PROFILE SECTION -->
+            <div class="row mt-4">
+                <div class="col-md-8">
+
+                    <div class="card card-primary card-outline shadow-sm">
+
+                        <!-- Header -->
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="bi bi-person-circle me-2"></i> My Profile
+                            </h3>
+                        </div>
+
+
+                        @if (Model.Role == "Agent")
+                        {
+                            <div class="text-center mt-4">
+
+                                <img src="@(Model.ProfileImage
+                                                                                                                                      ?? "/images/defaults/agent.png")"
+                                     class="rounded-circle shadow"
+                                     style="width:120px;
+                                height:120px;
+                                object-fit:cover;
+                                border:4px solid #e9ecef;" />
+
+                            </div>
+                        }
+
+
+
+                        <!-- Body -->
+                        <div class="card-body p-0">
+                            <table class="table table-striped mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 30%;">Name</th>
+                                        <td>@Model.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>@Model.Email</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Role</th>
+                                        <td>
+                                            <span class="badge text-bg-info">@Model.Role</span>
+                                        </td>
+                                    </tr>
+
+
+                                    @if (Model.Role == "Agent")
+                                    {
+                                        <tr>
+                                            <th>Agency</th>
+                                            <td>@Model.AgencyName</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>WhatsApp</th>
+                                            <td>@Model.WhatsApp</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Experience</th>
+                                            <td>@Model.ExperienceYears Years</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Office Address</th>
+                                            <td>@Model.OfficeAddress</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>About</th>
+                                            <td>@Model.AboutAgent</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="card-footer text-end">
+                            <a asp-controller="Account" asp-action="EditProfile" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil-square"></i> Edit Profile
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</main>

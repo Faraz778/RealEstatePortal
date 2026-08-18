@@ -1,0 +1,124 @@
+﻿@model RealEstatePortal.Models.Listing
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Edit Property</h2>
+
+    <form asp-controller="Agent" asp-action="Edit" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="Id" />
+
+        <!-- EXISTING IMAGES WITH DELETE BUTTON  -->
+        <div class="mb-3">
+            <label>Current Images</label><br />
+
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    @foreach (var img in Model.Images)
+                    {
+                        <div class="position-relative">
+
+                            <img src="@img.ImagePath" width="120" height="90"
+                                 style="object-fit:cover; border-radius:6px;" />
+
+                            <a asp-action="DeleteImage"
+                                   asp-controller="Agent"
+                                   asp-route-id="@img.Id"
+                                   class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                                   style="padding: 1px 5px; font-size:11px;"
+                                   onclick="return confirm('Delete this image?')">
+                                x
+                            </a>
+
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No images uploaded yet.</p>
+            }
+        </div>
+
+        <!-- multiple Images -->
+        <div class="mb-3">
+            <label>Add More Images</label>
+            <input asp-for="ImageFiles" type="file" class="form-control" multiple accept="image/*" />
+            <small class="text-muted">You can select multiple images at once</small>
+        </div>
+
+        <div class="mb-3">
+            <label>Title</label>
+            <input asp-for="Title" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Price</label>
+            <input asp-for="Price" type="number" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Category</label>
+          
+            <select asp-for="Category" class="form-control">
+                @foreach (var cat in ViewBag.Categories)
+                {
+                    <option value="@cat.Name">@cat.Name</option>
+                }
+            </select>
+        </div>
+
+      
+
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Purpose</label>
+
+            <select asp-for="Purpose" class="form-select">
+
+                <option value="Sell">For Sell</option>
+                <option value="Rent">For Rent</option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>City</label>
+            <select asp-for="CityId" class="form-control">
+                @foreach (var c in ViewBag.Cities)
+                {
+                    <option value="@c.Id">@c.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Location</label>
+            <input asp-for="Location" class="form-control" />
+        </div>
+       
+        <div class="mb-3">
+            <div class="form-check">
+
+                <input asp-for="HideEmail"
+                       class="form-check-input" />
+
+                <label class="form-check-label">
+                    Hide Email Address
+                </label>
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <a asp-controller="Agent" asp-action="AllListings" class="btn btn-secondary">Cancel</a>
+
+    </form>
+</div>

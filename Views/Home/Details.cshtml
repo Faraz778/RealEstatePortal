@@ -1,0 +1,371 @@
+﻿@model RealEstatePortal.Models.Listing
+
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<style>
+    .detail-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .property-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 5px;
+    }
+
+    .property-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: #f0c228;
+        margin-bottom: 15px;
+    }
+
+    .info-row {
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+        color: #555;
+    }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+    .info-label {
+        font-weight: 600;
+        color: #1a1a2e;
+        width: 120px;
+        display: inline-block;
+    }
+
+    .status-badge {
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+    .back-btn {
+        background: none;
+        border: 2px solid #1a1a2e;
+        border-radius: 50px;
+        padding: 8px 25px;
+        font-weight: 600;
+        color: #1a1a2e;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+        .back-btn:hover {
+            background: #1a1a2e;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    .photo-count {
+        text-align: center;
+        color: #999;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    .no-image-box {
+        height: 400px;
+        background: #f8f8f8;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .description-box {
+        background: #f8f8f8;
+        border-radius: 10px;
+        padding: 15px 20px;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .contact-box {
+        background: #1a1a2e;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .contact-box h4 {
+            color: #f0c228;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .contact-box p {
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+    .contact-btn {
+        background: #f0c228;
+        color: #1a1a2e;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .contact-btn:hover {
+            background: #d4a800;
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+</style>
+
+<!-- PAGE HEAD -->
+<div class="page-head">
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">Property Details</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-area padding-top-40" style="background:#f4f6f9;">
+    <div class="container" style="padding-top:30px; padding-bottom:50px;">
+
+        <!-- BACK BUTTON -->
+        <a href="/Home/Search" class="back-btn">
+            <i class="fa fa-arrow-left"></i> Back to Properties
+        </a>
+
+        <div class="row">
+
+            <!-- LEFT CAROUSEL -->
+            <div class="col-md-7" style="margin-bottom:25px;">
+                <div class="detail-card" style="padding:15px;">
+
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        <div id="detailCarousel" class="carousel slide" data-ride="carousel">
+
+                            <!-- DOTS -->
+                            <ol class="carousel-indicators">
+                                @for (int i = 0; i < Model.Images.Count(); i++)
+                                {
+                                    <li data-target="#detailCarousel"
+                                        data-slide-to="@i"
+                                        class="@(i == 0 ? "active" : "")">
+                                    </li>
+                                }
+                            </ol>
+
+                            <!-- IMAGES -->
+                            <div class="carousel-inner" style="border-radius:8px; overflow:hidden;">
+                                @{
+                                    int index = 0;
+                                }
+                                @foreach (var img in Model.Images)
+                                {
+                                    <div class="item @(index == 0 ? "active" : "")">
+                                        <img src="@img.ImagePath"
+                                             style="height:400px; width:100%; object-fit:cover;" />
+                                    </div>
+                                    index++;
+                                }
+                            </div>
+
+                            <!-- PREV -->
+                            <a class="carousel-control left" href="#detailCarousel" data-slide="prev"
+                                   style="background:rgba(0,0,0,0.3); width:40px; border-radius:0 5px 5px 0;">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+
+                            <!-- NEXT -->
+                            <a class="carousel-control right" href="#detailCarousel" data-slide="next"
+                                   style="background:rgba(0,0,0,0.3); width:40px; border-radius:5px 0 0 5px;">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+
+                        </div>
+
+                        <p class="photo-count">
+                            <i class="fa fa-camera"></i>
+                            @Model.Images.Count() photo(s)
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="no-image-box">
+                            <span style="color:#999;">
+                                <i class="fa fa-image" style="font-size:40px; display:block; margin-bottom:10px;"></i>
+                                No Image Available
+                            </span>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+         
+            <div class="col-md-5" style="margin-bottom:25px;">
+                <div class="detail-card">
+
+                    <!-- TITLE -->
+                    <h2 class="property-title">@Model.Title</h2>
+
+                    <!-- PRICE -->
+                    <div class="property-price">
+                        <i class="fa fa-tag"></i>
+                        PKR @Model.Price.ToString("N0")
+                    </div>
+
+                    <!-- PURPOSE -->
+                    <div style="margin-top:10px; margin-bottom:15px;">
+
+                        @if (Model.Purpose == "Rent")
+                        {
+                            <span class="badge bg-warning text-dark px-3 py-2">
+                                <i class="fa fa-key me-1"></i>
+                                For Rent
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success px-3 py-2">
+                                <i class="fa fa-home me-1"></i>
+                                For Sale
+                            </span>
+                        }
+
+                    </div>
+
+                    <!-- STATUS -->
+                    <div style="margin-bottom:15px;">
+                        @if (Model.Status == "Approved")
+                        {
+                            <span class="status-badge"
+                                  style="background:#e8f5e9; color:#2e7d32;">
+                                <i class="fa fa-check-circle"></i> Approved
+                            </span>
+                        }
+                        else if (Model.Status == "Pending")
+                        {
+                            <span class="status-badge"
+                                  style="background:#fff8e1; color:#f57f17;">
+                                <i class="fa fa-clock-o"></i> Pending
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status-badge"
+                                  style="background:#ffebee; color:#c62828;">
+                                <i class="fa fa-times-circle"></i> @Model.Status
+                            </span>
+                        }
+                    </div>
+
+                    <hr style="margin:15px 0;" />
+
+                    <!-- INFO ROWS -->
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="fa fa-th-large" style="color:#f0c228;"></i>
+                            Category
+                        </span>
+                        @Model.Category
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="fa fa-exchange" style="color:#f0c228;"></i>
+                            Purpose
+                        </span>
+                        @Model.Purpose
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="fa fa-map-marker" style="color:#f0c228;"></i>
+                            Location
+                        </span>
+                        @Model.Location
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="fa fa-building" style="color:#f0c228;"></i>
+                            City
+                        </span>
+                        @Model.City?.Name
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            <i class="fa fa-calendar" style="color:#f0c228;"></i>
+                            Posted On
+                        </span>
+                        @Model.CreatedDate.ToString("dd MMM yyyy")
+                    </div>
+
+                    @if (Model.HideEmail)
+                    {
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                <i class="fa fa-envelope" style="color:#f0c228;"></i>
+                                Contact
+                            </span>
+
+                            <span class="badge bg-dark">
+                                Email Hidden by Agent
+                            </span>
+
+                        </div>
+                    }
+
+                    <!-- CONTACT BOX -->
+                    <div class="contact-box">
+                        <h4>Interested in this property?</h4>
+                        <p>Contact us today for more information</p>
+
+                        <a asp-controller="Home"
+                               asp-action="Contact"
+                               class="contact-btn">
+
+                            <i class="fa fa-envelope-o"></i>
+                            Contact Us
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- DESCRIPTION ROW -->
+        <div class="detail-card">
+            <h4 style="color:#1a1a2e; font-weight:700; margin-bottom:15px;">
+                <i class="fa fa-align-left" style="color:#f0c228;"></i>
+                Description
+            </h4>
+            <div class="description-box">
+                @Model.Description
+            </div>
+        </div>
+
+    </div>
+</div>

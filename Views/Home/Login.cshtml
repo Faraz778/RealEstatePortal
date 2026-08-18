@@ -7,82 +7,134 @@
     <div class="container">
         <div class="row">
             <div class="page-head-content">
-                <h1 class="page-title">Home New account / Sign in </h1>
+                <h1 class="page-title">New account / Sign in </h1>
             </div>
         </div>
     </div>
 </div>
 <!-- End page header -->
 <!-- register-area -->
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+
+<div class="register-area" style="background-color: rgb(249, 249, 249); padding: 50px 0;">
     <div class="container">
 
-        <div class="col-md-6">
-            <div class="box-for overflow">
-                <div class="col-md-12 col-xs-12 register-blocks">
-                    <h2>New account : </h2>
-                    <form asp-controller="Account" asp-action="Register" method="post">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input asp-for="Name" type="text" class="form-control" id="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                                <input asp-for="Email" type="text" class="form-control" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                                <input asp-for ="Password" type="password" class="form-control" id="password">
-                        </div>
-                                <div class="form-group">
-                                    <label>Role</label>
-                                    <select asp-for="Role" class="form-control">
-                                        <option value="PrivateSeller">Private Seller</option>
-                                        <option value="Agent">Agent</option>
-                                    </select>
+        <!-- LOGIN FORM  -->
+        <div class="row mb-5">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="box-for overflow" style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <div class="col-md-12 col-xs-12 login-blocks">
+                        <h2 style="margin-bottom: 30px; color: #333; font-weight: 700;">
+                            <i class="fa fa-sign-in me-2"></i>
+                            Login to Your Account
+                        </h2>
+
+                        <form asp-controller="Account" asp-action="Login" method="post">
+                            
+                            <div class="form-group mb-3">
+                                <label for="email" style="font-weight: 600; color: #333;">Email Address</label>
+                                <input asp-for="Email" type="email" class="form-control" id="email"
+                                       placeholder="Enter your email" style="height: 45px;">
                                 </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-default">Register</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="box-for overflow">
-                <div class="col-md-12 col-xs-12 login-blocks">
-                    <h2>Login : </h2>
-                                <form asp-controller="Account" asp-action="Login" method="post">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                                        <input asp-for="Email" type="text" class="form-control" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                                  <input asp-for="Password" type="password" class="form-control" id="password">
-                        </div>
-                                            @if (ViewBag.Error != null)
-                                            {
-                                                <p class="text-danger">@ViewBag.Error</p>
-                                            }
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-default"> Log in</button>
-                        </div>
-                    </form>
-                    <br>
-                            
-                    @* <h2>Social login :  </h2>
-                            
-                    <p>
-                        <a class="login-social" href="#"><i class="fa fa-facebook"></i>&nbsp;Facebook</a>
-                        <a class="login-social" href="#"><i class="fa fa-google-plus"></i>&nbsp;Gmail</a>
-                        <a class="login-social" href="#"><i class="fa fa-twitter"></i>&nbsp;Twitter</a>
-                    </p> *@
-                </div>
-                        
-            </div>
-        </div>
+                                <div class="form-group mb-3">
+                                    <label for="password" style="font-weight: 600; color: #333;">Password</label>
+                                    <input asp-for="Password" type="password" class="form-control" id="password"
+                                           placeholder="Enter your password" style="height: 45px;">
+                                    </div>
 
-    </div>
-</div>      
+                                    @if (ViewBag.Error != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            <i class="fa fa-exclamation-circle me-2"></i>
+                                            @ViewBag.Error
+                                        </div>
+                                    }
+
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary" style="width: 100%; height: 45px; font-weight: 600; font-size: 16px;">
+                                            <i class="fa fa-sign-in me-2"></i>
+                                            Log In
+                                        </button>
+                                    </div>
+
+                                    <p class="text-center mt-3" style="color: #666; font-size: 14px;">
+                                        Don't have an account?
+                                        <a href="#register" style="color: #f0c228; text-decoration: none; font-weight: 600;">Sign up here</a>
+                                    </p>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REGISTER FORM -->
+                <div class="row" id="register">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="box-for overflow" style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <div class="col-md-12 col-xs-12 register-blocks">
+                                <h2 style="margin-bottom: 30px; color: #333; font-weight: 700;">
+                                    <i class="fa fa-user-plus me-2"></i>
+                                    Create New Account
+                                </h2>
+
+                                <form asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data">
+                            
+                                    <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="name" style="font-weight: 600; color: #333;">Full Name</label>
+                                        <input asp-for="Name" type="text" class="form-control" id="name"
+                                               placeholder="Enter your full name" style="height: 45px;">
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="email" style="font-weight: 600; color: #333;">Email Address</label>
+                                            <input asp-for="Email" type="email" class="form-control" id="email"
+                                                   placeholder="Enter your email" style="height: 45px;">
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="password" style="font-weight: 600; color: #333;">Password</label>
+                                                <input asp-for="Password" type="password" class="form-control" id="password"
+                                                       placeholder="Enter your password" style="height: 45px;">
+                                                </div>
+
+                                                <div class="form-group mb-3">
+                                                    <label style="font-weight: 600; color: #333;">Account Type</label>
+                                                    <select asp-for="Role" class="form-control" style="height: 45px;">
+                                                        <option value="PrivateSeller">Private Seller</option>
+                                                        <option value="Agent">Real Estate Agent</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="text-center mt-4">
+                                                    <button type="submit" class="btn btn-success" style="width: 100%; height: 45px; font-weight: 600; font-size: 16px;">
+                                                        <i class="fa fa-user-plus me-2"></i>
+                                                        Create Account
+                                                    </button>
+                                                </div>
+
+                                                <p class="text-center mt-3" style="color: #666; font-size: 14px;">
+                                                    Already have an account?
+                                                    <a href="#" onclick="window.scrollTo(0, 0);" style="color: #f0c228; text-decoration: none; font-weight: 600;">Log in here</a>
+                                                </p>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+ @section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

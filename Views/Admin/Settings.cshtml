@@ -1,0 +1,80 @@
+﻿@model RealEstatePortal.Models.Settings
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container-fluid mt-3">
+
+    <div class="card shadow-sm">
+
+        <!-- HEADER -->
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">
+                <i class="bi bi-gear-fill me-2"></i>
+                System Settings
+            </h3>
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body">
+
+          
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["success"]
+                </div>
+            }
+
+            <form method="post">
+
+                <!-- Currency -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Currency Symbol
+                    </label>
+
+                    <input asp-for="CurrencySymbol"
+                           class="form-control" />
+                </div>
+
+                <!-- Listings Per Page -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Listings Per Page
+                    </label>
+
+                    <input asp-for="ListingsPerPage"
+                           class="form-control"
+                           type="number" />
+                </div>
+
+                <!-- Featured Ads -->
+                <div class="form-check mb-3">
+
+                    <input asp-for="FeaturedAdsEnabled"
+                           class="form-check-input" />
+
+                    <label class="form-check-label">
+                        Enable Featured Ads
+                    </label>
+
+                </div>
+
+                <!-- BUTTON -->
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    <i class="bi bi-save"></i>
+                    Save Settings
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

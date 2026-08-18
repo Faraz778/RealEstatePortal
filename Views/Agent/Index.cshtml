@@ -1,12 +1,68 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutMaster.cshtml";
 }
-@* 
-<div class="text-center" style="margin-top: 50px;">
-    <h2 class="fw-bold">Welcome, @User.Identity.Name 👋</h2>
-    <p class="text-muted">Manage your properties, clients, and deals</p>
-</div> *@
-<div class="text-center" style="margin-top: 50px;">
-    <h2 class="fw-bold">Welcome back, @User.Identity.Name 👋</h2>
-    <p class="text-muted">Here you can manage your listings, track inquiries, and grow your business</p>
+
+<div class="container-fluid mt-4">
+
+    <!-- WELCOME SECTION -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">
+            Welcome back, @(Context.Session.GetString("UserName") ?? "User") 👋
+        </h2>
+        <p class="text-muted">
+            Manage your listings, track performance, and grow your business
+        </p>
+    </div>
+
+    <!-- CARDS SECTION -->
+    <div class="row g-3">
+
+        <!-- Total Listings -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="bi bi-house-door fs-2 text-primary"></i>
+                    <h6 class="mt-2 text-muted">Total Listings</h6>
+                    <h4 class="fw-bold text-primary">@ViewBag.TotalListings</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="bi bi-hourglass-split fs-2 text-warning"></i>
+                    <h6 class="mt-2 text-muted">Pending</h6>
+                    <h4 class="fw-bold text-warning">@ViewBag.PendingListings</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Approved -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="bi bi-check-circle fs-2 text-success"></i>
+                    <h6 class="mt-2 text-muted">Approved</h6>
+                    <h4 class="fw-bold text-success">@ViewBag.ApprovedListings</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expired -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="bi bi-x-circle fs-2 text-danger"></i>
+                    <h6 class="mt-2 text-muted">Expired</h6>
+                    <h4 class="fw-bold text-danger">@ViewBag.ExpiredListings</h4>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+   
 </div>

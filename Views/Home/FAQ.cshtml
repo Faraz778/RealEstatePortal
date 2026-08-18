@@ -1,0 +1,205 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+     ViewData["Title"] = "FAQ";
+}
+<style>
+    .panel-heading a {
+        color: #1a1a2e;
+        font-weight: 600;
+        text-decoration: none;
+        display: block;
+    }
+    .panel-heading a i {
+        color: #f0c228;
+        margin-right: 8px;
+    }
+    .panel {
+        border-radius: 8px !important;
+        overflow: hidden;
+        margin-bottom: 12px !important;
+        border: none !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+    .panel-default > .panel-heading {
+        background-color: #fff;
+        padding: 15px 20px;
+    }
+    .panel-body {
+        color: #6c757d;
+    }
+</style>
+
+<!-- PAGE HEADER -->
+<div class="page-head">
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">FAQ page</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ SECTION -->
+<div class="content-area padding-top-40" style="background-color:#fff;">
+    <div class="container" style="padding-top:40px; padding-bottom:40px;">
+
+        <!-- TITLE -->
+        <div class="text-center" style="margin-bottom:40px;">
+            <h2 style="color:#1a1a2e; font-weight:700;">
+                Frequently Asked <span style="color:#f0c228;">Questions</span>
+            </h2>
+            <p style="color:#6c757d;">Everything you need to know about Realtors Portal</p>
+            <div style="width:60px; height:4px; background:#f0c228; margin:0 auto; border-radius:2px;"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                <!-- BOOTSTRAP 3 ACCORDION -->
+                <div class="panel-group" id="faqAccordion">
+
+                    <!-- FAQ 1 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#faqAccordion"
+                               href="#faq1">
+                                <i class="fa fa-home"></i>
+                                How do I post a property?
+                            </a>
+                        </div>
+                        <div id="faq1" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                Register as an Agent or Private Seller and use the
+                                <strong>Add Property</strong> option from your dashboard.
+                                Your listing will be reviewed by admin before going live.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#faqAccordion"
+                               href="#faq2"
+                               class="collapsed">
+                                <i class="fa fa-user"></i>
+                                Is registration free?
+                            </a>
+                        </div>
+                        <div id="faq2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Registration is currently free for both Agents and Private Sellers — 
+        you can sign up and start listing right away. To post more properties, 
+        you can purchase a <strong>Basic package</strong> (2 listings) or a 
+        <strong>Premium package</strong> (5 listings). For custom or bulk 
+        packages, please contact the admin.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#faqAccordion"
+                               href="#faq3"
+                               class="collapsed">
+                                <i class="fa fa-phone"></i>
+                                How can I contact an agent?
+                            </a>
+                        </div>
+                        <div id="faq3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Open the property details page and use the
+                                contact information provided by the agent or
+                                use the built-in contact form.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#faqAccordion"
+                               href="#faq4"
+                               class="collapsed">
+                                <i class="fa fa-search"></i>
+                                How do I search for a property?
+                            </a>
+                        </div>
+                        <div id="faq4" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Use the search bar on the homepage to search by
+                                keyword, or use advanced search to filter by
+                                category, city, and price range.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#faqAccordion"
+                               href="#faq5"
+                               class="collapsed">
+                                <i class="fa fa-picture-o"></i>
+                                Can I upload multiple images for my listing?
+                            </a>
+                        </div>
+                        <div id="faq5" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Yes! You can upload multiple images for each
+                                property listing. Simply select multiple files
+                                when uploading from your dashboard.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse"
+                               data-parent="#faqAccordion"
+                               href="#faq6"
+                               class="collapsed">
+                                <i class="fa fa-shield"></i>
+                                Are listings verified?
+                            </a>
+                        </div>
+                        <div id="faq6" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Yes, all listings go through an admin review
+                                process before being approved and shown
+                                to visitors on the site.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END ACCORDION -->
+
+            </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div class="text-center" style="margin-top:50px; padding:40px;
+             background:linear-gradient(135deg, #1a1a2e, #2d2d44);
+             border-radius:12px;">
+            <h4 style="color:#fff; font-weight:700;">Still have questions?</h4>
+            <p style="color:rgba(255,255,255,0.75); margin-bottom:20px;">
+                Can't find the answer you're looking for? Feel free to contact us.
+            </p>
+            <a href="/Home/Contact"
+               style="background:#f0c228; color:#1a1a2e; font-weight:700;
+                      padding:10px 30px; border-radius:5px; text-decoration:none;">
+                <i class="fa fa-envelope"></i> Contact Us
+            </a>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,183 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<style>
+    .stat-card {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 25px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .stat-icon {
+        font-size: 2rem;
+        color: #667eea;
+        margin-bottom: 15px;
+    }
+
+    .stat-title {
+        font-size: 13px;
+        color: #999;
+        font-weight: 500;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+        .page-header h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: #999;
+            margin: 0;
+        }
+</style>
+
+<div class="container-fluid">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-bar-chart-line me-2"></i>
+            Reports Dashboard
+        </h2>
+        <p>System statistics and analytics overview</p>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="row g-4 mb-4">
+
+        <!-- TOTAL USERS -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-people-fill stat-icon"></i>
+                    <h6 class="stat-title">Total Users</h6>
+                    <h2 class="stat-number">@ViewBag.TotalUsers</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOTAL LISTINGS -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-house-door-fill stat-icon"></i>
+                    <h6 class="stat-title">Total Listings</h6>
+                    <h2 class="stat-number">@ViewBag.TotalListings</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPROVED -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-check-circle-fill stat-icon"></i>
+                    <h6 class="stat-title">Approved Listings</h6>
+                    <h2 class="stat-number">@ViewBag.ApprovedListings</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="row g-4 mb-4">
+
+        <!-- PENDING -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-hourglass-split stat-icon"></i>
+                    <h6 class="stat-title">Pending Listings</h6>
+                    <h2 class="stat-number">@ViewBag.PendingListings</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- REJECTED -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-x-circle-fill stat-icon"></i>
+                    <h6 class="stat-title">Rejected Listings</h6>
+                    <h2 class="stat-number">@ViewBag.RejectedListings</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPIRED -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-clock-history stat-icon"></i>
+                    <h6 class="stat-title">Expired Listings</h6>
+                    <h2 class="stat-number">@ViewBag.ExpiredListings</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="row g-4 mb-4">
+
+        <!-- CATEGORIES -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-tags-fill stat-icon"></i>
+                    <h6 class="stat-title">Categories</h6>
+                    <h2 class="stat-number">@ViewBag.TotalCategories</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- CITIES -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-geo-alt-fill stat-icon"></i>
+                    <h6 class="stat-title">Cities</h6>
+                    <h2 class="stat-number">@ViewBag.TotalCities</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card stat-card h-100">
+                <div class="text-center">
+                    <i class="bi bi-envelope-fill stat-icon"></i>
+                    <h6 class="stat-title">Contact Messages</h6>
+                    <h2 class="stat-number">@ViewBag.TotalMessages</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

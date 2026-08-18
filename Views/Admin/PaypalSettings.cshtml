@@ -1,0 +1,60 @@
+﻿@model RealEstatePortal.Models.PaypalSetting
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                PayPal Settings
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["success"]
+                </div>
+            }
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        PayPal Email
+                    </label>
+                    <input asp-for="PaypalEmail" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Client ID
+                    </label>
+                    <input asp-for="ClientId" class="form-control" />
+                </div>
+
+                <div class="form-check mb-3">
+                  <input asp-for="SandboxMode" class="form-check-input" />
+                    <label class="form-check-label">
+                        Enable Sandbox Mode
+                    </label>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Save Settings
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

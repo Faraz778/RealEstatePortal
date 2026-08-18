@@ -1,0 +1,49 @@
+﻿@model RealEstatePortal.Models.User
+
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-primary text-white">
+            <h4>Assign Package</h4>
+        </div>
+
+        <div class="card-body">
+
+            <h5>@Model.Name</h5>
+            <p>@Model.Email</p>
+
+            <form method="post">
+
+                <div class="mb-3">
+
+                    <label class="form-label">Select Package</label>
+
+                    <select name="packageId" class="form-select">
+
+                        @foreach (var p in ViewBag.Packages)
+                        {
+                            <option value="@p.Id">
+                                @p.Name - @p.ListingLimit Listings
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <button class="btn btn-primary">
+                    Assign Package
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
